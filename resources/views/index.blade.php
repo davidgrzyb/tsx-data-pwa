@@ -8,6 +8,10 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
     <link rel="manifest" href="manifest.json" />
+    <link rel="apple-touch-icon" href="{{ asset('img/icon.png') }}">
+    <link rel="apple-touch-icon" sizes="152x152" href="{{ asset('img/icon.png') }}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('img/icon.png') }}">
+    <link rel="apple-touch-icon" sizes="167x167" href="{{ asset('img/icon.png') }}">
     <title>TMX Live Data</title>
     <style>
         .container {
