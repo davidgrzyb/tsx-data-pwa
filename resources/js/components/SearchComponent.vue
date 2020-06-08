@@ -10,7 +10,7 @@
             @click="search"
             class="bg-blue-500 hover:bg-blue-700 text-white text-lg font-bold py-4 px-4 rounded focus:outline-none focus:shadow-outline mt-4" 
         >
-            Search
+            {{ searchBtnText }}
         </button>
     </div>
 </template>
@@ -30,5 +30,6 @@
                 }
             },
         },
+        props: ['searchBtnText'],
     }
 </script>

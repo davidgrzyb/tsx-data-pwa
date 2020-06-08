@@ -12,6 +12,8 @@
     <link rel="apple-touch-icon" sizes="152x152" href="{{ asset('img/icon.png') }}">
     <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('img/icon.png') }}">
     <link rel="apple-touch-icon" sizes="167x167" href="{{ asset('img/icon.png') }}">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
     <title>TMX Live Data</title>
     <style>
         .container {
