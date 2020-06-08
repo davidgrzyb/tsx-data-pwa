@@ -1,0 +1,13 @@
+window.Vue = require('vue');
+import App from './App.vue';
+
+Vue.config.devtools = true;
+Vue.config.performance = true;
+
+const app = new Vue({
+    el: '#app',
+    components: {
+        App
+    },
+    render: h => h(App)
+});
