@@ -1963,16 +1963,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      error_message: '',
-      data: null
+      error: null,
+      ticker: null,
+      price: null,
+      change: null
     };
   },
   methods: {
@@ -1985,12 +1984,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context.prev = _context.next) {
               case 0:
                 return _context.abrupt("return", axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("/api/getPrice/".concat(ticker)).then(function (response) {
-                  _this.data = {
-                    ticker: response.data.ticker,
-                    price: response.data.price,
-                    amount_change: response.data.amount_change,
-                    percentage_change: response.data.percentage_change
-                  };
+                  console.log(response.data);
+                  _this.error = response.data.error;
+                  _this.ticker = response.data.ticker;
+                  _this.price = response.data.price;
+                  _this.change = response.data.change;
                 }));
 
               case 1:
@@ -2000,6 +1998,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           }
         }, _callee);
       }))();
+    }
+  },
+  computed: {
+    isGreen: function isGreen() {
+      return parseFloat(this.change.split(' ')[0]) > 0;
     }
   },
   components: {
@@ -3278,105 +3281,71 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "flex-grow p-3", attrs: { id: "app" } },
+    { staticClass: "flex-grow p-3 text-2xl", attrs: { id: "app" } },
     [
       _c("search-component", { on: { search: _vm.search } }),
       _vm._v(" "),
-      this.data
+      this.ticker
         ? _c(
             "div",
-            { staticClass: "flex flex-wrap overflow-hidden mt-10 px-4" },
+            { staticClass: "flex flex-wrap overflow-hidden mt-12 px-4" },
             [
               _c(
                 "div",
-                {
-                  staticClass: "w-1/2 text-gray-700 text-center overflow-hidden"
-                },
+                { staticClass: "w-1/3 text-gray-700 overflow-hidden" },
                 [_vm._v("\n            Ticker\n        ")]
               ),
               _vm._v(" "),
               _c(
                 "div",
                 {
-                  staticClass: "w-1/2 font-semibold text-center overflow-hidden"
+                  staticClass: "w-2/3 font-semibold text-center overflow-hidden"
                 },
-                [
-                  _vm._v(
-                    "\n            " + _vm._s(this.data.ticker) + "\n        "
-                  )
-                ]
+                [_vm._v("\n            " + _vm._s(this.ticker) + "\n        ")]
               ),
               _vm._v(" "),
               _c(
                 "div",
-                {
-                  staticClass: "w-1/2 text-gray-700 text-center overflow-hidden"
-                },
+                { staticClass: "w-1/3 text-gray-700 overflow-hidden" },
                 [_vm._v("\n            Price\n        ")]
               ),
               _vm._v(" "),
               _c(
                 "div",
                 {
-                  staticClass: "w-1/2 font-semibold text-center overflow-hidden"
+                  staticClass: "w-2/3 font-semibold text-center overflow-hidden"
                 },
-                [
-                  _vm._v(
-                    "\n            " + _vm._s(this.data.price) + "\n        "
-                  )
-                ]
+                [_vm._v("\n            " + _vm._s(this.price) + "\n        ")]
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "w-1/3 text-gray-700 overflow-hidden" },
+                [_vm._v("\n            Change\n        ")]
               ),
               _vm._v(" "),
               _c(
                 "div",
                 {
-                  staticClass: "w-1/2 text-gray-700 text-center overflow-hidden"
+                  staticClass:
+                    "w-2/3 font-semibold text-center overflow-hidden",
+                  class: this.isGreen ? "text-green-500" : "text-red-500"
                 },
-                [_vm._v("\n            Today's Change ($)\n        ")]
-              ),
-              _vm._v(" "),
-              _c(
-                "div",
-                {
-                  staticClass: "w-1/2 font-semibold text-center overflow-hidden"
-                },
-                [
-                  _vm._v(
-                    "\n            " +
-                      _vm._s(this.data.amount_change) +
-                      "\n        "
-                  )
-                ]
-              ),
-              _vm._v(" "),
-              _c(
-                "div",
-                {
-                  staticClass: "w-1/2 text-gray-700 text-center overflow-hidden"
-                },
-                [_vm._v("\n            Today's Change (%)\n        ")]
-              ),
-              _vm._v(" "),
-              _c(
-                "div",
-                {
-                  staticClass: "w-1/2 font-semibold text-center overflow-hidden"
-                },
-                [
-                  _vm._v(
-                    "\n            " +
-                      _vm._s(this.data.percentage_change) +
-                      "\n        "
-                  )
-                ]
+                [_vm._v("\n            " + _vm._s(this.change) + "\n        ")]
               )
             ]
           )
         : _vm._e(),
       _vm._v(" "),
-      !this.data
+      !this.ticker && !this.error
         ? _c("div", { staticClass: "mt-10 px-4 text-center" }, [
             _vm._v("\n        Search to view latest TMX data..\n    ")
+          ])
+        : _vm._e(),
+      _vm._v(" "),
+      this.error
+        ? _c("div", { staticClass: "mt-10 px-4 text-center" }, [
+            _vm._v("\n        " + _vm._s(this.error) + "\n    ")
           ])
         : _vm._e()
     ],
@@ -3405,7 +3374,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "flex" }, [
+  return _c("div", { staticClass: "flex flex-col" }, [
     _c("input", {
       directives: [
         {
@@ -3416,7 +3385,7 @@ var render = function() {
         }
       ],
       staticClass:
-        "w-2/3 text-gray-700 text-sm font-bold bg-white shadow-md rounded-lg py-2 px-4",
+        "text-gray-700 text-sm font-bold text-lg bg-white shadow-md rounded-lg py-4 px-4",
       attrs: { placeholder: "Search by ticker.." },
       domProps: { value: _vm.ticker },
       on: {
@@ -3442,7 +3411,7 @@ var render = function() {
       "button",
       {
         staticClass:
-          "w-1/3 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ml-4",
+          "bg-blue-500 hover:bg-blue-700 text-white text-lg font-bold py-4 px-4 rounded focus:outline-none focus:shadow-outline mt-4",
         on: { click: _vm.search }
       },
       [_vm._v("\n        Search\n    ")]

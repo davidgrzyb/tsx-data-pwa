@@ -1,34 +1,31 @@
 <template>
-    <div id="app" class="flex-grow p-3">
+    <div id="app" class="flex-grow p-3 text-2xl">
         <search-component @search="search"></search-component>
-        <div v-if="this.data" class="flex flex-wrap overflow-hidden mt-10 px-4">
-            <div class="w-1/2 text-gray-700 text-center overflow-hidden">
+        <div v-if="this.ticker" class="flex flex-wrap overflow-hidden mt-12 px-4">
+            <div class="w-1/3 text-gray-700 overflow-hidden">
                 Ticker
             </div>
-            <div class="w-1/2 font-semibold text-center overflow-hidden">
-                {{ this.data.ticker }}
+            <div class="w-2/3 font-semibold text-center overflow-hidden">
+                {{ this.ticker }}
             </div>
-            <div class="w-1/2 text-gray-700 text-center overflow-hidden">
+            <div class="w-1/3 text-gray-700 overflow-hidden">
                 Price
             </div>
-            <div class="w-1/2 font-semibold text-center overflow-hidden">
-                {{ this.data.price }}
+            <div class="w-2/3 font-semibold text-center overflow-hidden">
+                {{ this.price }}
             </div>
-            <div class="w-1/2 text-gray-700 text-center overflow-hidden">
-                Today's Change ($)
+            <div class="w-1/3 text-gray-700 overflow-hidden">
+                Change
             </div>
-            <div class="w-1/2 font-semibold text-center overflow-hidden">
-                {{ this.data.amount_change }}
-            </div>
-            <div class="w-1/2 text-gray-700 text-center overflow-hidden">
-                Today's Change (%)
-            </div>
-            <div class="w-1/2 font-semibold text-center overflow-hidden">
-                {{ this.data.percentage_change }}
+            <div :class="this.isGreen ? 'text-green-500' : 'text-red-500'" class="w-2/3 font-semibold text-center overflow-hidden">
+                {{ this.change }}
             </div>
         </div>
-        <div v-if="!this.data" class="mt-10 px-4 text-center">
+        <div v-if="!this.ticker && !this.error" class="mt-10 px-4 text-center">
             Search to view latest TMX data..
+        </div>
+        <div v-if="this.error" class="mt-10 px-4 text-center">
+            {{ this.error }}
         </div>
     </div>
 </template>
@@ -40,21 +37,27 @@
     export default {
         data() {
             return {
-                error_message: '',
-                data: null
+                error: null,
+                ticker: null,
+                price: null,
+                change: null,
             }
         },
         methods: {
             async search(ticker) {
                 return axios.get(`/api/getPrice/${ticker}`)
                     .then((response) => {
-                        this.data = {
-                            ticker: response.data.ticker,
-                            price: response.data.price,
-                            amount_change: response.data.amount_change,
-                            percentage_change: response.data.percentage_change
-                        };
+                        console.log(response.data);
+                        this.error = response.data.error;
+                        this.ticker = response.data.ticker;
+                        this.price = response.data.price;
+                        this.change = response.data.change;
                 });
+            }
+        },
+        computed: {
+            isGreen: function () {
+                return parseFloat(this.change.split(' ')[0]) > 0;
             }
         },
         components: {

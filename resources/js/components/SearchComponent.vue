@@ -1,14 +1,14 @@
 <template>
-    <div class="flex">
+    <div class="flex flex-col">
         <input
             v-on:keyup.enter="search"
             v-model="ticker"
-            class="w-2/3 text-gray-700 text-sm font-bold bg-white shadow-md rounded-lg py-2 px-4"
+            class="text-gray-700 text-sm font-bold text-lg bg-white shadow-md rounded-lg py-4 px-4"
             placeholder="Search by ticker.."
         >
         <button
             @click="search"
-            class="w-1/3 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ml-4" 
+            class="bg-blue-500 hover:bg-blue-700 text-white text-lg font-bold py-4 px-4 rounded focus:outline-none focus:shadow-outline mt-4" 
         >
             Search
         </button>
