@@ -7,9 +7,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
+    <link rel="manifest" href="manifest.json" />
     <title>TMX Live Data</title>
+    <style>
+        .container {
+            max-width: 600px;
+        }
+    </style>
 </head>
-<body class="flex flex-col bg-gray-300">
+<body class="flex flex-col bg-gray-300 container mx-auto">
     <header class="w-full bg-white text-center text-xl p-4 mb-4">
         Live TMX Data
     </header>
