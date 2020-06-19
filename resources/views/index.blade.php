@@ -17,25 +17,9 @@
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
     <title>Live TSX Data</title>
 </head>
-<body class="flex flex-col h-screen bg-gray-300">
-    <header class="w-full bg-white mb-4">
-        <div class="container mx-auto flex items-center justify-between p-4">
-            <a href="/" class="text-xl">Live TSX Data</a>
-            <div class="">
-                <!-- <a href="#" class="p-3 mx-1 hover:bg-gray-200 rounded">Search</a>
-                <a href="#" class="p-3 mx-1 hover:bg-gray-200 rounded">Portfolio</a>
-                <a href="#" class="p-3 mx-1 hover:bg-gray-200 rounded">Log Out</a> -->
-            </div>
-        </div>
-    </header>
+<body class="bg-gray-300">
 
     <div id="app"></div>
-
-    <footer class="bg-white">
-        <div class="container mx-auto text-center text-gray-600 p-3">
-            For educational purposes only.
-        </div>
-    </footer>
 
     <script src="js/app.js"></script>
     <!-- Global site tag (gtag.js) - Google Analytics -->

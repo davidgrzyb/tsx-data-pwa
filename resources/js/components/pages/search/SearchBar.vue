@@ -31,6 +31,8 @@
                 }
             },
         },
-        props: ['searching'],
+        props: {
+            searching: Boolean,
+        },
     }
 </script>

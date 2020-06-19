@@ -43,14 +43,14 @@
                 return parseFloat(this.change.split(' ')[0]) > 0;
             }
         },
-        props: [
-            'ticker',
-            'name',
-            'price',
-            'change',
-            'error',
-            'searching'
-        ],
+        props: {
+            ticker: String,
+            name: String,
+            price: String,
+            change: String,
+            error: String,
+            searching: Boolean,
+        },
     }
 </script>
 
